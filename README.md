@@ -3,7 +3,7 @@ _Derived from a course taught in Spring 2020_
 
 _Instructor: Hyacinth Nil Ramsay_
 
-This course is taught in 2 parts: beginning with an introduction to game programming concepts in 2d using the very lovely framework [LöVE 2D](love2d.org) and then moving to 3D game development in [Unity](unity.com). This document will be updated as I (the instructor) have time and energy.
+This course is taught in 2 parts: beginning with an introduction to game programming concepts in 2D using the very fun framework [LöVE 2D](love2d.org) and then moving to 3D game development in [Unity](unity.com). This document will be updated as I (the instructor) have time and energy.
 
 _If you're not in my class but are reading this and are interested in anything specific, feel free to email me at [hyacinth@hyacinthnil.com](mailto:hyacinth@hyacinthnil.com)_
 
