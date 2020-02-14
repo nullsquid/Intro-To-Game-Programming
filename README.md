@@ -124,6 +124,11 @@ end
 
 Here, we have only 2 possible conditions we're checking for so we check for the one that has a definite point at which it's true (100 health means you're not hurt), and anything that falls outside of that we catch with the `else` statement.
 
+### Functions
+If we think of variables as our nouns, then functions are more like our verbs. They are what allow us to do stuff in our code.
+
+<!--TODO add this section-->
+
 ### love-Specific Functions
 A love game has 3 main callback functions that your game will use.
 *   `love.load()` is responsible for all setup actions and runs once at the moment your game starts
