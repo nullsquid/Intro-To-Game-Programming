@@ -7,6 +7,8 @@ This course is taught in 2 parts: beginning with an introduction to game program
 
 _If you're not in my class but are reading this and are interested in anything specific, feel free to email me at [hyacinth@hyacinthnil.com](mailto:hyacinth@hyacinthnil.com)_
 
+_If you think that this is a cool project and want to support it, the author accepts donations [here](www.ko-fi.com/hyacinthnil)__
+
 ___
 
 ## Part 0: Basic LöVE and Lua concepts
@@ -76,6 +78,10 @@ end
 ```
 As we see, we define an empty table by writing `tableName = {}`, then we can add different parameters to it by writing `tableName.tableParameter = parameterValue`. This can get complicated, but these basics should be enough for our first few projects.
 
+#### Modifying Variables
+We can do a bunch of math to variables.
+<!-- TODO write stuff about changing variables in here -->
+
 #### Takeaways
 *   Whenever you want to reference something that will change at some point, you'll probably want to use a variable
 *   Lua doesn't care what kind of information you give a variable, so long as it's syntactically appropriate
@@ -124,10 +130,34 @@ end
 
 Here, we have only 2 possible conditions we're checking for so we check for the one that has a definite point at which it's true (100 health means you're not hurt), and anything that falls outside of that we catch with the `else` statement.
 
+#### Checking for Equivalence
+Most often, control statements will be used to compare one variable to another, or one variable to a number. We do this with the `==` operator. `==` and `=` function in very different ways in our code. As we saw earlier, `=` is used to set a variable to a particular value, overwriting the previous value. `==` on the other hand is used to check if the value on the left of the operator is equal to the value on the right. We can also check if the left is greater than the right using `>` or less than with `<`.
+
+#### Takeaways
+*   Control Statements are used to change the flow of a program--you use them when you want something to happen based on a certain condition
+*   `if...then` is the most commonly used one of these, and runs the code between `then` and `end` only if the condition right after the word `if` is met
+
 ### Functions
 If we think of variables as our nouns, then functions are more like our verbs. They are what allow us to do stuff in our code.
 
-<!--TODO add this section-->
+A function in Lua is written like this:
+```
+function doSomething(arg)
+  print("something is done")
+end
+```
+
+Let's look at the different parts of the phrase above. This is what's called a _function definition_; it's where we write in our code what a function does. All Lua functions start with the keyword `function` followed by a name. The name could be anything but should describe what the function does. We could call the function that we write causes damage to happen `Fredrick`, but that makes no sense in context. Something like `dealDamage` would make more sense. Again, functions are usually phrased as actions--names that start with phrases like `do`, `calculate`, and `checkFor` are common.
+
+You'll notice that in our above example, the name `doSomething` is followed by a pair of open and closed parentheses with the word `arg` in it. I just put that there to illustrate that you can put words in there. More on that in a bit. The takeaway right now is that all functions have a `()` following their name, no matter what.
+
+Once we have our name followed by that pair of parentheses, we can write the body of the function. This is where the stuff happens. The body of a function is a bunch of code that does a specific thing. Functions can output values or just act on values, but the point is that the code inside of them should be for a specific purpose. Continuing our fascination with health, let's write a function that does some damage to a target.
+
+```
+function dealDamage(damage)
+  enemy.health = enemy.health - damage
+end
+```
 
 ### love-Specific Functions
 A love game has 3 main callback functions that your game will use.
