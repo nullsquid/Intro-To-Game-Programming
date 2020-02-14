@@ -28,6 +28,35 @@
 <p><em>If you&apos;re not in my class but are reading this and are interested in anything specific, feel free to email me at <a href="mailto:hyacinth@hyacinthnil.com">hyacinth@hyacinthnil.com</a></em></p>
 <p><em>If you think that this is a cool project and want to support it, the author accepts donations <a href="www.ko-fi.com/hyacinthnil">here</a>_</em></p>
 <hr>
+<!-- TOC -->
+
+<ul>
+<li><a href="#intro-game-programming">Intro Game Programming</a><ul>
+<li><a href="#part-0-basic-l%C3%B6ve-and-lua-concepts">Part 0: Basic L&#xF6;VE and Lua concepts</a><ul>
+<li><a href="#setting-up">Setting Up</a></li>
+<li><a href="#variables-in-lua">Variables in Lua</a><ul>
+<li><a href="#types-of-variables">Types of Variables</a></li>
+<li><a href="#modifying-variables">Modifying Variables</a></li>
+<li><a href="#takeaways">Takeaways</a></li>
+</ul>
+</li>
+<li><a href="#control-statements">Control Statements</a><ul>
+<li><a href="#checking-for-equivalence">Checking for Equivalence</a></li>
+<li><a href="#takeaways-1">Takeaways</a></li>
+</ul>
+</li>
+<li><a href="#functions">Functions</a><ul>
+<li><a href="#function-arguments">Function Arguments</a></li>
+<li><a href="#calling-functions">Calling Functions</a></li>
+</ul>
+</li>
+<li><a href="#love-specific-functions">love-Specific Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
 <h2 id="part-0-basic-l-ve-and-lua-concepts">Part 0: Basic L&#xF6;VE and Lua concepts</h2>
 <h3 id="setting-up">Setting Up</h3>
 <p>love 2d (stylized L&#xF6;VE, but from here on out I&apos;ll write &quot;love&quot; or &quot;love 2d&quot;) is a pretty friendly framework for making games with. It uses the also pretty friendly scripting language Lua to write the logic for your games. All love games have one main script called <strong>main.lua</strong>--without this file, they will not function. To make a love game, download the engine from <a href="love2d.org">love2d.org</a>, make a new folder and create a <strong>main.lua</strong> file in it. Once you&apos;re ready to build it, drag the whole folder onto your <strong>love.exe</strong> file on your computer or use the <a href="https://atom.io/packages/love-ide">love-ide</a> package for the <a href="atom.io">Atom text editor</a>.</p>
@@ -116,7 +145,10 @@ end</code></pre><p>Let&apos;s look at the different parts of the phrase above. T
 <p>Once we have our name followed by that pair of parentheses, we can write the body of the function. This is where the stuff happens. The body of a function is a bunch of code that does a specific thing. Functions can output values or just act on values, but the point is that the code inside of them should be for a specific purpose. Continuing our fascination with health, let&apos;s write a function that does some damage to a target.</p>
 <pre><code>function dealDamage(damage)
   enemy.health = enemy.health - damage
-end</code></pre><h3 id="love-specific-functions">love-Specific Functions</h3>
+end</code></pre><h4 id="function-arguments">Function Arguments</h4>
+<h4 id="calling-functions">Calling Functions</h4>
+<p>Once we define a function, we probably want to actually use it. Using a function is commonly referred to as <em>calling</em> it. To call a function, we simply write</p>
+<h3 id="love-specific-functions">love-Specific Functions</h3>
 <p>A love game has 3 main callback functions that your game will use.</p>
 <ul>
 <li><code>love.load()</code> is responsible for all setup actions and runs once at the moment your game starts</li>
