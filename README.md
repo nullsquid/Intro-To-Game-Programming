@@ -187,4 +187,4 @@ A love game has 3 main callback functions that your game will use.
 *   `love.update(dt)` is run every frame. This is where changes to the state of the game and the core logic of the game happens. It has a special argument called `dt` which we use to make games framerate independent.
 *   `love.draw()` also runs every frame and is where any graphical changes happen
 
-Unlike custom functions that you write, you do not need to call these. Anything written within the body will run as soon as the game starts, and with the `update()` and `draw()` functions, it will continue until the game stops.
+Unlike the custom functions that we wrote above, you do not need to call these. Anything written within the body will run as soon as the game starts, and with the `update()` and `draw()` functions, it will continue until the game stops.
