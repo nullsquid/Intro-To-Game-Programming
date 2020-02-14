@@ -21,10 +21,86 @@
   }
 </style>
 </head>
-<body><div id="readme" class="container"><article class="markdown-body entry-content"><h1 id="gdp-112-intro-game-programming">GDP-112 Intro Game Programming</h1>
-<p><em>Course Taught at Union County College, Spring 2020
-Taught by Hyacinth Nil Ramsay</em>
-This course is taught in 2 parts: beginning with an introduction to game programming concepts in 2d using the very lovely framework <a href="love2d.org">LoVE 2D</a> and then moving to 3D game development in <a href="unity.com">Unity</a>. This document will be updated as I (the instructor) have time and energy.</p>
+<body><div id="readme" class="container"><article class="markdown-body entry-content"><h1 id="intro-game-programming">Intro Game Programming</h1>
+<p><em>Derived from a course taught in Spring 2020</em></p>
+<p><em>Instructor: Hyacinth Nil Ramsay</em></p>
+<p>This course is taught in 2 parts: beginning with an introduction to game programming concepts in 2d using the very lovely framework <a href="love2d.org">L&#xF6;VE 2D</a> and then moving to 3D game development in <a href="unity.com">Unity</a>. This document will be updated as I (the instructor) have time and energy.</p>
+<p><em>If you&apos;re not in my class but are reading this and are interested in anything specific, feel free to email me at <a href="mailto:hyacinth@hyacinthnil.com">hyacinth@hyacinthnil.com</a></em></p>
+<hr>
+<h2 id="part-0-basic-l-ve-and-lua-concepts">Part 0: Basic L&#xF6;VE and Lua concepts</h2>
+<h3 id="setting-up">Setting Up</h3>
+<p>love 2d (stylized L&#xF6;VE, but from here on out I&apos;ll write &quot;love&quot; or &quot;love 2d&quot;) is a pretty friendly framework for making games with. It uses the also pretty friendly scripting language Lua to write the logic for your games. All love games have one main script called <strong>main.lua</strong>--without this file, they will not function. To make a love game, download the engine from <a href="love2d.org">love2d.org</a>, make a new folder and create a <strong>main.lua</strong> file in it. Once you&apos;re ready to build it, drag the whole folder onto your <strong>love.exe</strong> file on your computer or use the <a href="https://atom.io/packages/love-ide">love-ide</a> package for the <a href="atom.io">Atom text editor</a>.</p>
+<p><em>note: the love-ide package doesn&apos;t like nested folder structures, so if you have your folder with main.lua in it inside another folder, add the main game folder as a project folder in atom without the wrapper folder</em></p>
+<h3 id="variables-in-lua">Variables in Lua</h3>
+<p>Like most programming languages, Lua allows you to write variables. A variable is basically a name that we give to a piece of data.</p>
+<p>Consider a game that has health. We probably want to have a way to check our character&apos;s health consistently in our code. Small problems like this are when variables are most useful--whenever we have information that could change during the course of play, we&apos;ll want to use them.</p>
+<p>If we wanted to write a health variable in lua, we&apos;d simply write <code>health = 100</code> where <code>100</code> is the initial health value.</p>
+<p>I like to think of variables as the nouns of our code. They&apos;re often the stuff that the other pieces of our game use and act on.</p>
+<p><em>note: like a lot of parts in programming, variables do not mean anything until they&apos;re put in context. This health variable doesn&apos;t actually represent health yet--it is only the number 100. Eventually we&apos;ll make it mean something but right now it&apos;s just a name that makes its use easier to envision</em></p>
+<h4 id="types-of-variables">Types of Variables</h4>
+<p>Lua is dynamically typed, which means we don&apos;t need to worry about the sort of data we&apos;re giving a variable before we give it. For instance, if we write</p>
+<pre><code>health = 100
+friend = &quot;dog&quot;
+health = friend</code></pre><p>that&apos;s allowed, and means that our program understands the variable <code>health</code> to mean the word <code>&quot;dog&quot;</code> until we set it to something else. To reiterate, a variable is just a name for some data; what we do with it is what makes it matter.</p>
+<p>There are a few types of variables we&apos;re concerned with in Lua:</p>
+<ul>
+<li>numbers</li>
+<li>strings</li>
+<li>booleans</li>
+<li>tables</li>
+</ul>
+<p><strong>Numbers</strong> are pretty self explanatory, but it&apos;s worth noting that Lua basically deals with whole and decimal numbers in the same way as far as we&apos;re concerned.</p>
+<p><strong>Strings</strong> are words, letters, punctuation, and any grouping of written characters. <code>&quot;dog&quot;</code> in our earlier example is a string. While also fairly self explanatory, we can write something like</p>
+<pre><code>ten = 10
+tenTwo = &quot;10&quot;</code></pre><p>where <code>ten</code> is a number and <code>tenTwo</code> is a string. Anything wrapped in quotes is a string, so bear that in mind.</p>
+<p><strong>Booleans</strong> are variables that can only be in one of two states, either <code>true</code> or <code>false</code>. Think of a toggleable light switch--if it&apos;s off, and we flip it on, it&apos;s no longer off. Booleans work the same way, and are useful for toggling different binary states in game. We could revise an earlier example to look like</p>
+<pre><code>health = 100
+isDead = false
+if health &lt;= 0 then
+  isDead = true
+end</code></pre><p>Here, we&apos;re controlling our hypothetical player&apos;s death state with a variable called <code>isDead</code>.</p>
+<p><strong>Tables</strong> are a really cool feature of Lua, and they&apos;re unique to the language as far as I know. Other languages have similar stuff but none that is as clean and pleasant to use as a Lua table.</p>
+<p>Tables function as collections of different information. We&apos;ll be using them a lot so you don&apos;t have to internalize all of their workings right now, but the important part is that whenever you have a bunch of related functionality, you&apos;ll probably want to put it in a table. A common use, we&apos;ll see, is for bundling up all of the functionality of a <code>player</code>. Let&apos;s make a player table for the previous example:</p>
+<pre><code>player = {}
+player.health = 100
+player.isDead = false
+if player.health &lt;= 0 then
+  player.isDead = true
+end</code></pre><p>As we see, we define an empty table by writing <code>tableName = {}</code>, then we can add different parameters to it by writing <code>tableName.tableParameter = parameterValue</code>. This can get complicated, but these basics should be enough for our first few projects.</p>
+<h4 id="takeaways">Takeaways</h4>
+<ul>
+<li>Whenever you want to reference something that will change at some point, you&apos;ll probably want to use a variable</li>
+<li>Lua doesn&apos;t care what kind of information you give a variable, so long as it&apos;s syntactically appropriate</li>
+<li>Bundling a bunch of information together into one idea is a good use case for using a table<h3 id="control-statements">Control Statements</h3>
+We&apos;ll be getting deeper into control flow later, but up front there&apos;s only one sort of control statement to keep in mind; the <code>if</code> statement. <code>if</code> statements in lua are extremely readable, especially compared to many programming languages. Let&apos;s use the variable we made in the last section in this example:</li>
+</ul>
+<pre><code>if health == 100 then
+  print(&quot;health is full&quot;)
+end</code></pre><p>Here, we&apos;re checking <em>if</em> our health variable is 100, and printing a message to the console if it is. You can probably see its use at this point. For instance, I bet you can see the utility of a statement like</p>
+<pre><code>if health == 0 then
+  print(&quot;you&apos;re dead&quot;)
+end</code></pre><p><code>if</code> statements need 3 key words. <code>if</code> starts the statement. Immediately following the <code>if</code>, the statement requires something to check for, usually some kind of equivalence or comparison. This is followed by the word <code>then</code>.</p>
+<p>All <code>if</code> statements conclude with the word <code>end</code>.</p>
+<p><code>if</code> statements can branch as well. What if, for instance, you wanted something to happen when your health is less than <code>100</code> but greater than <code>50</code>. We could write something like this:</p>
+<pre><code>if health == 100 then
+  print(&quot;health is full&quot;)
+elseif health &lt; 100 and health &gt; 50 then
+  print(&quot;you&apos;re hurt&quot;)
+elseif health &lt;= 0 then
+  print(&quot;you&apos;re dead&quot;)
+end</code></pre><p>This adds a few more wrinkles, such as the <code>and</code> keyword and the <code>&gt;</code> and <code>&lt;</code> operators. We&apos;ll come back to this, but for now, understand that an <code>elseif</code> can follow an <code>if</code> if you want to check for additional conditions in the same statement. You can also use the <code>else</code> keyword as a catch-all term for all other conditions. For example:</p>
+<pre><code>if health == 100 then
+  print(&quot;you&apos;re not hurt&quot;)
+else
+  print(&quot;you&apos;re hurt&quot;)
+end</code></pre><p>Here, we have only 2 possible conditions we&apos;re checking for so we check for the one that has a definite point at which it&apos;s true (100 health means you&apos;re not hurt), and anything that falls outside of that we catch with the <code>else</code> statement.</p>
+<h3 id="love-specific-functions">love-Specific Functions</h3>
+<p>A love game has 3 main callback functions that your game will use.</p>
+<ul>
+<li><code>love.load()</code> is responsible for all setup actions and runs once at the moment your game starts</li>
+<li><code>love.update()</code> is run every frame. This is where changes to the state of the game and the core logic of the game happens</li>
+<li><code>love.draw()</code> also runs every frame and is where any graphical changes happen</li>
+</ul>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>
