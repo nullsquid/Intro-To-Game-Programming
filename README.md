@@ -179,10 +179,12 @@ end
 Now, we can give it the name of a new table when we call it. We'd probably want to do a bit more in the body to make sure that `target` has a parameter called `health` in it, but this is fine for the present example.
 
 #### Calling Functions
-Once we define a function, we probably want to actually use it. Using a function is commonly referred to as _calling_ it. To call a function, we simply write the name, along with any arguments between the parentheses.
+Once we define a function, we probably want to actually use it. Using a function is commonly referred to as _calling_ it. To call a function, we simply write the name, along with any arguments between the parentheses. Taking our earlier example, when we want to actually deal our damage, we could write `dealDamage(enemy, 10)`. This tells our game to run whatever code is inside of the body of the `dealDamage` function, replacing wherever we wrote `target` with `enemy` and wherever we wrote `damage` with `10`. In short, this will do 10 damage to the enemy we give it. In a real production situation, we'd want to actually deal with damage a bit differently, but we'll get to that. I just want to illustrate how functions are written and used here.
 
 ### love-Specific Functions
 A love game has 3 main callback functions that your game will use.
 *   `love.load()` is responsible for all setup actions and runs once at the moment your game starts
-*   `love.update()` is run every frame. This is where changes to the state of the game and the core logic of the game happens
+*   `love.update(dt)` is run every frame. This is where changes to the state of the game and the core logic of the game happens. It has a special argument called `dt` which we use to make games framerate independent.
 *   `love.draw()` also runs every frame and is where any graphical changes happen
+
+Unlike custom functions that you write, you do not need to call these. Anything written within the body will run as soon as the game starts, and with the `update()` and `draw()` functions, it will continue until the game stops.
