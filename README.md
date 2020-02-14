@@ -10,24 +10,18 @@ _If you're not in my class but are reading this and are interested in anything s
 _If you think that this is a cool project and want to support it, the author accepts donations [here](www.ko-fi.com/hyacinthnil)__
 
 ___
-<!-- TOC -->
 
-- [Intro Game Programming](#intro-game-programming)
-  - [Part 0: Basic LöVE and Lua concepts](#part-0-basic-l%C3%B6ve-and-lua-concepts)
-    - [Setting Up](#setting-up)
-    - [Variables in Lua](#variables-in-lua)
-      - [Types of Variables](#types-of-variables)
-      - [Modifying Variables](#modifying-variables)
-      - [Takeaways](#takeaways)
-    - [Control Statements](#control-statements)
-      - [Checking for Equivalence](#checking-for-equivalence)
-      - [Takeaways](#takeaways-1)
-    - [Functions](#functions)
-      - [Function Arguments](#function-arguments)
-      - [Calling Functions](#calling-functions)
-    - [love-Specific Functions](#love-specific-functions)
+<!-- TOC depthFrom:2 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Part 0: Basic LöVE and Lua concepts](#part-0-basic-löve-and-lua-concepts)
+	- [Setting Up](#setting-up)
+	- [Variables in Lua](#variables-in-lua)
+	- [Control Statements](#control-statements)
+	- [Functions](#functions)
+	- [love-Specific Functions](#love-specific-functions)
 
 <!-- /TOC -->
+
 ## Part 0: Basic LöVE and Lua concepts
 ### Setting Up
 love 2d (stylized LöVE, but from here on out I'll write "love" or "love 2d") is a pretty friendly framework for making games with. It uses the also pretty friendly scripting language Lua to write the logic for your games. All love games have one main script called __main.lua__--without this file, they will not function. To make a love game, download the engine from [love2d.org](love2d.org), make a new folder and create a __main.lua__ file in it. Once you're ready to build it, drag the whole folder onto your __love.exe__ file on your computer or use the [love-ide](https://atom.io/packages/love-ide) package for the [Atom text editor](atom.io).
@@ -176,9 +170,16 @@ function dealDamage(damage)
 end
 ```
 #### Function Arguments
+Above, between the parentheses, you'll see the word `damage`. This is basically a variable that's used only within this function. When we actually use the function, we'll replace it with a number to represent how much damage the enemy takes. When we're defining the function, however, we write the name that we'll use to refer to it inside the body of the function. We can also write multiple arguments separated by commas. For instance, if we didn't want this function to only affect the table called `enemy`, we could write the function like
+```
+function dealDamage(target, damage)
+  target.health = target.health - damage
+end
+```
+Now, we can give it the name of a new table when we call it. We'd probably want to do a bit more in the body to make sure that `target` has a parameter called `health` in it, but this is fine for the present example.
 
 #### Calling Functions
-Once we define a function, we probably want to actually use it. Using a function is commonly referred to as _calling_ it. To call a function, we simply write
+Once we define a function, we probably want to actually use it. Using a function is commonly referred to as _calling_ it. To call a function, we simply write the name, along with any arguments between the parentheses.
 
 ### love-Specific Functions
 A love game has 3 main callback functions that your game will use.
