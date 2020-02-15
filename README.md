@@ -3,9 +3,9 @@ _Derived from a college course taught by the author in Spring 2020, the material
 
 _Instructor: Hyacinth Nil Ramsay_
 
-This course is taught in 2 parts: beginning with an introduction to game programming concepts in 2D using the very fun framework [LöVE 2D](love2d.org) and then moving to 3D game development in [Unity](unity.com). This document will be updated as I (the instructor) have time and energy.
+This course is taught in 2 parts: beginning with an introduction to game programming concepts in 2D using the very low-overhead framework [LöVE 2D](love2d.org) and then moving to 3D game development in [Unity](unity.com). This document will be updated as I (the instructor) have time and energy.
 
-_If you're not in my class but are reading this and are interested in anything specific, feel free to email me at [hyacinth@hyacinthnil.com](mailto:hyacinth@hyacinthnil.com)_
+_If you're not one of my current students but are reading this and are interested in anything specific, feel free to email me at [hyacinth@hyacinthnil.com](mailto:hyacinth@hyacinthnil.com)_
 
 _If you think that this is a cool project and want to support it, the author accepts donations [here](www.ko-fi.com/hyacinthnil)_
 
@@ -89,14 +89,28 @@ end
 ```
 As we see, we define an empty table by writing `tableName = {}`, then we can add different parameters to it by writing `tableName.tableParameter = parameterValue`. This can get complicated, but these basics should be enough for our first few projects.
 
-#### Modifying Variables
+#### Math, and Modifying Variables
 We can do a bunch of math to variables.
-<!-- TODO write stuff about changing variables in here -->
+
+All of our favorite arithmetic operations are here, such as `+`, `-`, `*` and `/`, as well as the modulo operator (`%`) which divides the left-hand side by the right-hand side and returns the remainder.
+
+When working with variables, a very common thing we want to do is change a variable to be a new number that's somehow related to the original number.
+
+Let's take our earlier health example. If we want to decrease our character's health, we might think that writing something like `health - 10` would subtract `10` from `health`. It does, but we're never changing our `health` variable to anything new. If `health` is `100`, and we write `health - 10`, `health` is still `100` because we're never updating it's value.
+
+To actually make the change stick, we have to use the `=` operation that we used earlier to set the variable value in the first place. For instance
+`health = health - 10`.
+
+Written in English, this basically means `health` now equals the result of `health - 10`.
+
+_note: many programming languages, including Lua, shorthand this with a combination operator `-=`. This would make the above example read as `health -= 10`. I've noticed that love doesn't like this operation so I won't be using it in any of the love-based code I write here._
 
 #### Takeaways
 *   Whenever you want to reference something that will change at some point, you'll probably want to use a variable
 *   Lua doesn't care what kind of information you give a variable, so long as it's syntactically appropriate
 *   Bundling a bunch of information together into one idea is a good use case for using a table
+*   To change a variable during play, we need to write `variable = variable + value` (rewrite for whatever your specific variables and operations are)
+
 ### Control Statements
 We'll be getting deeper into control flow later, but up front there's only one sort of control statement to keep in mind; the `if` statement. `if` statements in lua are extremely readable, especially compared to many programming languages. Let's use the variable we made in the last section in this example:
 
@@ -180,6 +194,10 @@ Now, we can give it the name of a new table when we call it. We'd probably want 
 
 #### Calling Functions
 Once we define a function, we probably want to actually use it. Using a function is commonly referred to as _calling_ it. To call a function, we simply write the name, along with any arguments between the parentheses. Taking our earlier example, when we want to actually deal our damage, we could write `dealDamage(enemy, 10)`. This tells our game to run whatever code is inside of the body of the `dealDamage` function, replacing wherever we wrote `target` with `enemy` and wherever we wrote `damage` with `10`. In short, this will do 10 damage to the enemy we give it. In a real production situation, we'd want to actually deal with damage a bit differently, but we'll get to that. I just want to illustrate how functions are written and used here.
+
+#### Takeaways
+*   Most of the time when you want to make your code _do something_, you'll either use a function that already exists in whatever framewo you're using (love, in our case), or write one yourself
+*   Functions can use special internally-declared variables called _arguments_ to do whatever they need to do
 
 ### love-Specific Functions
 A love game has 3 main callback functions that your game will use.

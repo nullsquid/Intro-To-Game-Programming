@@ -24,8 +24,8 @@
 <body><div id="readme" class="container"><article class="markdown-body entry-content"><h1 id="intro-game-programming">Intro Game Programming</h1>
 <p><em>Derived from a college course taught by the author in Spring 2020, the materials here are the author&apos;s attempts to codify 5+ years of teaching game programming &amp; game design across almost every age group into something straightforward, approachable, and free</em></p>
 <p><em>Instructor: Hyacinth Nil Ramsay</em></p>
-<p>This course is taught in 2 parts: beginning with an introduction to game programming concepts in 2D using the very fun framework <a href="love2d.org">L&#xF6;VE 2D</a> and then moving to 3D game development in <a href="unity.com">Unity</a>. This document will be updated as I (the instructor) have time and energy.</p>
-<p><em>If you&apos;re not in my class but are reading this and are interested in anything specific, feel free to email me at <a href="mailto:hyacinth@hyacinthnil.com">hyacinth@hyacinthnil.com</a></em></p>
+<p>This course is taught in 2 parts: beginning with an introduction to game programming concepts in 2D using the very low-overhead framework <a href="love2d.org">L&#xF6;VE 2D</a> and then moving to 3D game development in <a href="unity.com">Unity</a>. This document will be updated as I (the instructor) have time and energy.</p>
+<p><em>If you&apos;re not one of my current students but are reading this and are interested in anything specific, feel free to email me at <a href="mailto:hyacinth@hyacinthnil.com">hyacinth@hyacinthnil.com</a></em></p>
 <p><em>If you think that this is a cool project and want to support it, the author accepts donations <a href="www.ko-fi.com/hyacinthnil">here</a></em></p>
 <hr>
 <!-- TOC depthFrom:2 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
@@ -82,17 +82,24 @@ player.isDead = false
 if player.health &lt;= 0 then
   player.isDead = true
 end</code></pre><p>As we see, we define an empty table by writing <code>tableName = {}</code>, then we can add different parameters to it by writing <code>tableName.tableParameter = parameterValue</code>. This can get complicated, but these basics should be enough for our first few projects.</p>
-<h4 id="modifying-variables">Modifying Variables</h4>
+<h4 id="math-and-modifying-variables">Math, and Modifying Variables</h4>
 <p>We can do a bunch of math to variables.</p>
-<!-- TODO write stuff about changing variables in here -->
-
+<p>All of our favorite arithmetic operations are here, such as <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code>, as well as the modulo operator (<code>%</code>) which divides the left-hand side by the right-hand side and returns the remainder.</p>
+<p>When working with variables, a very common thing we want to do is change a variable to be a new number that&apos;s somehow related to the original number.</p>
+<p>Let&apos;s take our earlier health example. If we want to decrease our character&apos;s health, we might think that writing something like <code>health - 10</code> would subtract <code>10</code> from <code>health</code>. It does, but we&apos;re never changing our <code>health</code> variable to anything new. If <code>health</code> is <code>100</code>, and we write <code>health - 10</code>, <code>health</code> is still <code>100</code> because we&apos;re never updating it&apos;s value.</p>
+<p>To actually make the change stick, we have to use the <code>=</code> operation that we used earlier to set the variable value in the first place. For instance
+<code>health = health - 10</code>.</p>
+<p>Written in English, this basically means <code>health</code> now equals the result of <code>health - 10</code>.</p>
+<p><em>note: many programming languages, including Lua, shorthand this with a combination operator <code>-=</code>. This would make the above example read as <code>health -= 10</code>. I&apos;ve noticed that love doesn&apos;t like this operation so I won&apos;t be using it in any of the love-based code I write here.</em></p>
 <h4 id="takeaways">Takeaways</h4>
 <ul>
 <li>Whenever you want to reference something that will change at some point, you&apos;ll probably want to use a variable</li>
 <li>Lua doesn&apos;t care what kind of information you give a variable, so long as it&apos;s syntactically appropriate</li>
-<li>Bundling a bunch of information together into one idea is a good use case for using a table<h3 id="control-statements">Control Statements</h3>
-We&apos;ll be getting deeper into control flow later, but up front there&apos;s only one sort of control statement to keep in mind; the <code>if</code> statement. <code>if</code> statements in lua are extremely readable, especially compared to many programming languages. Let&apos;s use the variable we made in the last section in this example:</li>
+<li>Bundling a bunch of information together into one idea is a good use case for using a table</li>
+<li>To change a variable during play, we need to write <code>variable = variable + value</code> (rewrite for whatever your specific variables and operations are)</li>
 </ul>
+<h3 id="control-statements">Control Statements</h3>
+<p>We&apos;ll be getting deeper into control flow later, but up front there&apos;s only one sort of control statement to keep in mind; the <code>if</code> statement. <code>if</code> statements in lua are extremely readable, especially compared to many programming languages. Let&apos;s use the variable we made in the last section in this example:</p>
 <pre><code>if health == 100 then
   print(&quot;health is full&quot;)
 end</code></pre><p>Here, we&apos;re checking <em>if</em> our health variable is 100, and printing a message to the console if it is. You can probably see its use at this point. For instance, I bet you can see the utility of a statement like</p>
@@ -137,6 +144,11 @@ end</code></pre><h4 id="function-arguments">Function Arguments</h4>
 end</code></pre><p>Now, we can give it the name of a new table when we call it. We&apos;d probably want to do a bit more in the body to make sure that <code>target</code> has a parameter called <code>health</code> in it, but this is fine for the present example.</p>
 <h4 id="calling-functions">Calling Functions</h4>
 <p>Once we define a function, we probably want to actually use it. Using a function is commonly referred to as <em>calling</em> it. To call a function, we simply write the name, along with any arguments between the parentheses. Taking our earlier example, when we want to actually deal our damage, we could write <code>dealDamage(enemy, 10)</code>. This tells our game to run whatever code is inside of the body of the <code>dealDamage</code> function, replacing wherever we wrote <code>target</code> with <code>enemy</code> and wherever we wrote <code>damage</code> with <code>10</code>. In short, this will do 10 damage to the enemy we give it. In a real production situation, we&apos;d want to actually deal with damage a bit differently, but we&apos;ll get to that. I just want to illustrate how functions are written and used here.</p>
+<h4 id="takeaways">Takeaways</h4>
+<ul>
+<li>Most of the time when you want to make your code <em>do something</em>, you&apos;ll either use a function that already exists in whatever framewo you&apos;re using (love, in our case), or write one yourself</li>
+<li>Functions can use special internally-declared variables called <em>arguments</em> to do whatever they need to do</li>
+</ul>
 <h3 id="love-specific-functions">love-Specific Functions</h3>
 <p>A love game has 3 main callback functions that your game will use.</p>
 <ul>
