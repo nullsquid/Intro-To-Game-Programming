@@ -1,5 +1,5 @@
 # Intro Game Programming
-_Derived from a course taught in Spring 2020_
+_Derived from a college course taught by the author in Spring 2020, the materials here are the author's attempts to codify 5+ years of teaching game programming & game design across almost every age group into something straightforward, approachable, and free_
 
 _Instructor: Hyacinth Nil Ramsay_
 
