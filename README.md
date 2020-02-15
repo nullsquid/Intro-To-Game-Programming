@@ -197,7 +197,7 @@ Now, we can give it the name of a new table when we call it. We'd probably want 
 Once we define a function, we probably want to actually use it. Using a function is commonly referred to as _calling_ it. To call a function, we simply write the name, along with any arguments between the parentheses. Taking our earlier example, when we want to actually deal our damage, we could write `dealDamage(enemy, 10)`. This tells our game to run whatever code is inside of the body of the `dealDamage` function, replacing wherever we wrote `target` with `enemy` and wherever we wrote `damage` with `10`. In short, this will do 10 damage to the enemy we give it. In a real production situation, we'd want to actually deal with damage a bit differently, but we'll get to that. I just want to illustrate how functions are written and used here.
 
 #### Takeaways
-*   Most of the time when you want to make your code _do something_, you'll either use a function that already exists in whatever framewo you're using (love, in our case), or write one yourself
+*   Most of the time when you want to make your code _do something_, you'll either use a function that already exists in whatever framework you're using (love, in our case), or write one yourself
 *   Functions can use special internally-declared variables called _arguments_ to do whatever they need to do
 
 ### love-Specific Functions
