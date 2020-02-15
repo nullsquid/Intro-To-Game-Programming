@@ -19,6 +19,7 @@ ___
 	- [Control Statements](#control-statements)
 	- [Functions](#functions)
 	- [love-Specific Functions](#love-specific-functions)
+- [Part 1: Writing Our First Love Program](#part-1-writing-our-first-love-program)
 
 <!-- /TOC -->
 
@@ -206,3 +207,5 @@ A love game has 3 main callback functions that your game will use.
 *   `love.draw()` also runs every frame and is where any graphical changes happen
 
 Unlike the custom functions that we wrote above, you do not need to call these. Anything written within the body will run as soon as the game starts, and with the `update()` and `draw()` functions, it will continue until the game stops.
+
+## Part 1: Writing Our First Love Program
