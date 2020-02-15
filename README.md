@@ -7,7 +7,7 @@ This course is taught in 2 parts: beginning with an introduction to game program
 
 _If you're not in my class but are reading this and are interested in anything specific, feel free to email me at [hyacinth@hyacinthnil.com](mailto:hyacinth@hyacinthnil.com)_
 
-_If you think that this is a cool project and want to support it, the author accepts donations [here](www.ko-fi.com/hyacinthnil)__
+_If you think that this is a cool project and want to support it, the author accepts donations [here](www.ko-fi.com/hyacinthnil)_
 
 ___
 
