@@ -1,5 +1,9 @@
 function love.load(arg)
+
   -- body...
+  state = 1
+  padding = 25
+
   player = {}
   player.w = 60
   player.h = 60
@@ -8,6 +12,14 @@ function love.load(arg)
   player.ix = 0
   player.iy = 0
   player.speed = 250
+
+  block = {}
+  block.x = 100
+  block.y = 100
+  block.h = 10
+  block.w = 10
+
+
 end
 
 function love.update(dt)
@@ -31,18 +43,25 @@ function love.update(dt)
 
 
   if(player.ix * player.ix + player.iy * player.iy > 1) then
+    --the next line is the distance formula
     dist=math.sqrt(player.ix * player.ix + player.iy * player.iy)
     player.ix = player.ix / dist
     player.iy = player.iy / dist
   end
-
-  player.x = player.x + (player.ix * player.speed) * dt
-  player.y = player.y + (player.iy * player.speed) * dt
+  if (player.x + player.w) + (player.ix * player.speed) * dt <= love.graphics.getWidth() - padding and (player.x + player.ix * player.speed * dt) >= padding then
+    player.x = player.x + (player.ix * player.speed) * dt
+  end
+  if (player.y + player.h) + (player.iy * player.speed) * dt <= love.graphics.getHeight() - padding and (player.y + player.iy * player.speed * dt) >= padding then
+    player.y = player.y + (player.iy * player.speed) * dt
+  end
 
 
 end
 
 function love.draw()
   -- body...
+  love.graphics.setColor(1, 0, 0.7)
   love.graphics.rectangle("fill", player.x, player.y, player.w, player.h)
+  love.graphics.setColor(1, 0, 0)
+  love.graphics.rectangle("fill", block.x, block.y, block.w, block.h)
 end
