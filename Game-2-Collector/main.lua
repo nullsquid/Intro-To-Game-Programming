@@ -62,6 +62,19 @@ function love.draw()
   -- body...
   love.graphics.setColor(1, 0, 0.7)
   love.graphics.rectangle("fill", player.x, player.y, player.w, player.h)
-  love.graphics.setColor(1, 0, 0)
-  love.graphics.rectangle("fill", block.x, block.y, block.w, block.h)
+  --love.graphics.printf(distance(player.x,player.y,block.x,block.y), 100,100, 50, "center")
+  if distance(player.x,player.y,block.x,block.y) > 100 then
+    love.graphics.setColor(1, 0, 0)
+    love.graphics.rectangle("fill", block.x, block.y, block.w, block.h)
+  end
+  if distance(player.x,player.y,block.x,block.y) < 100 then
+    love.graphics.setColor(0, 1, 0)
+    love.graphics.rectangle("fill", block.x, block.y, block.w, block.h)
+  end
+
+
+end
+
+function distance(x1,y1,x2,y2)
+  return math.sqrt((y2 - y1)^2 + (x2 - x1)^2)
 end
