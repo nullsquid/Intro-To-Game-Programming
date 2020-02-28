@@ -2,7 +2,7 @@ function love.load(arg)
 
   -- body...
   state = 1
-  padding = 25
+  padding = 0
 
   player = {}
   player.w = 60
@@ -13,11 +13,11 @@ function love.load(arg)
   player.iy = 0
   player.speed = 250
 
-  block = {}
-  block.x = 100
-  block.y = 100
-  block.h = 10
-  block.w = 10
+  blocks = {}
+  for i=1,10 do
+    -- body...
+    createBlock()
+  end
 
 
 end
@@ -62,19 +62,28 @@ function love.draw()
   -- body...
   love.graphics.setColor(1, 0, 0.7)
   love.graphics.rectangle("fill", player.x, player.y, player.w, player.h)
-  --love.graphics.printf(distance(player.x,player.y,block.x,block.y), 100,100, 50, "center")
-  if distance(player.x,player.y,block.x,block.y) > 100 then
-    love.graphics.setColor(1, 0, 0)
-    love.graphics.rectangle("fill", block.x, block.y, block.w, block.h)
+  for i,v in ipairs(blocks) do
+    if distance(player.x, player.y, v.x, v.y) < 100 then
+      love.graphics.setColor(1, 0, 0)
+      love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
+    else
+      love.graphics.setColor(1, 1, 0)
+      love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
+    end
   end
-  if distance(player.x,player.y,block.x,block.y) < 100 then
-    love.graphics.setColor(0, 1, 0)
-    love.graphics.rectangle("fill", block.x, block.y, block.w, block.h)
-  end
-
-
 end
 
-function distance(x1,y1,x2,y2)
+function createBlock(x, y)
+  block = {}
+  block.h = 10
+  block.w = 10
+  block.x = math.random(0, love.graphics.getWidth() - block.w)
+  block.y = math.random(0, love.graphics.getHeight() - block.h)
+
+
+  table.insert(blocks, block)
+end
+
+function distance(x1, y1, x2, y2)
   return math.sqrt((y2 - y1)^2 + (x2 - x1)^2)
 end
