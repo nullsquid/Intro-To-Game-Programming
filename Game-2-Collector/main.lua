@@ -17,6 +17,8 @@ function love.load(arg)
   player.y = love.graphics.getHeight() / 2 - (player.h / 2)
   player.ix = 0
   player.iy = 0
+  player.cx = (player.x + (player.w/2))
+  player.cy = (player.y + (player.h/2))
   player.speed = 250
 
   --We need to define an empty table to hold all of the coins that we want to put into our scene
@@ -55,7 +57,7 @@ function love.update(dt)
 
   --we check if the player is moving
   if(player.ix * player.ix + player.iy * player.iy > 1) then
-    
+
     dist=math.sqrt(player.ix * player.ix + player.iy * player.iy)
     player.ix = player.ix / dist
     player.iy = player.iy / dist
@@ -67,10 +69,14 @@ function love.update(dt)
   if (player.y + player.h) + (player.iy * player.speed) * dt <= love.graphics.getHeight() - padding and (player.y + player.iy * player.speed * dt) >= padding then
     player.y = player.y + (player.iy * player.speed) * dt
   end
+
+  player.cx = (player.x + (player.w/2))
+  player.cy = (player.y + (player.h/2))
 end
 
 function love.draw()
   -- body...
+
   love.graphics.setColor(1, 0, 0.7)
   love.graphics.rectangle("fill", player.x, player.y, player.w, player.h)
   for i,v in ipairs(coins) do
