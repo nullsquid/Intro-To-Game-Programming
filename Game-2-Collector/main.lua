@@ -80,13 +80,8 @@ function love.draw()
   love.graphics.setColor(1, 0, 0.7)
   love.graphics.rectangle("fill", player.x, player.y, player.w, player.h)
   for i,v in ipairs(coins) do
-    if distance(player.x, player.y, v.x, v.y) < 100 then
-      love.graphics.setColor(1, 0, 0)
-      love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
-    else
-      love.graphics.setColor(1, 1, 0)
-      love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
-    end
+    love.graphics.setColor(1, 1, 0)
+    love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
   end
 end
 
