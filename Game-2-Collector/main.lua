@@ -1,6 +1,16 @@
 function love.load(arg)
+  score = 0
+  time = 10
+
   --state will control the game state
-  state = 1
+
+  states = {}
+  states.start = 1
+  states.playing = 2
+  states.win = 3
+  states.gameover = 4
+
+  curState = states.start
   --padding controls the thickness of the stage's borders
   padding = 0
 
@@ -33,56 +43,87 @@ end
 
 --update runs every frame
 function love.update(dt)
-  --the next several lines check what key is being pressed
-  --if a given key is pressed, if it's on the horizontal axis
-  --we set ix to -1 or 1; if it's vertical, we do the same for iy
-  if love.keyboard.isDown("up") then
-    player.iy =  -1
-  elseif love.keyboard.isDown("down") then
-    player.iy = 1
-  end
-  if love.keyboard.isDown("left") then
-    player.ix = -1
-  elseif love.keyboard.isDown("right") then
-    player.ix = 1
-  end
-  --if no key is being pressed, we do not want any movement
-  --so we check if no key is pressed and set the respective input variable to 0
-  if not love.keyboard.isDown("right") and not love.keyboard.isDown("left") then
-    player.ix = 0
-  end
-  if not love.keyboard.isDown("up") and not love.keyboard.isDown("down") then
-    player.iy = 0
-  end
+  if curState == states.playing then
+    if time > 0 then
+      time = time - dt
+    elseif time <= 0 then
+      curState = states.gameover
+    end
 
-  --we check if the player is moving
-  if(player.ix * player.ix + player.iy * player.iy > 1) then
+    --the next several lines check what key is being pressed
+    --if a given key is pressed, if it's on the horizontal axis
+    --we set ix to -1 or 1; if it's vertical, we do the same for iy
+    if love.keyboard.isDown("up") then
+      player.iy =  -1
+    elseif love.keyboard.isDown("down") then
+      player.iy = 1
+    end
+    if love.keyboard.isDown("left") then
+      player.ix = -1
+    elseif love.keyboard.isDown("right") then
+      player.ix = 1
+    end
+    --if no key is being pressed, we do not want any movement
+    --so we check if no key is pressed and set the respective input variable to 0
+    if not love.keyboard.isDown("right") and not love.keyboard.isDown("left") then
+      player.ix = 0
+    end
+    if not love.keyboard.isDown("up") and not love.keyboard.isDown("down") then
+      player.iy = 0
+    end
 
-    dist=math.sqrt(player.ix * player.ix + player.iy * player.iy)
-    player.ix = player.ix / dist
-    player.iy = player.iy / dist
-  end
-  --The following several lines adds borders to
-  if (player.x + player.w) + (player.ix * player.speed) * dt <= love.graphics.getWidth() - padding and (player.x + player.ix * player.speed * dt) >= padding then
-    player.x = player.x + (player.ix * player.speed) * dt
-  end
-  if (player.y + player.h) + (player.iy * player.speed) * dt <= love.graphics.getHeight() - padding and (player.y + player.iy * player.speed * dt) >= padding then
-    player.y = player.y + (player.iy * player.speed) * dt
-  end
+    --we check if the player is moving
+    if(player.ix * player.ix + player.iy * player.iy > 1) then
 
-  player.cx = (player.x + (player.w/2))
-  player.cy = (player.y + (player.h/2))
+      dist=math.sqrt(player.ix * player.ix + player.iy * player.iy)
+      player.ix = player.ix / dist
+      player.iy = player.iy / dist
+    end
+    --The following several lines adds borders to
+    if (player.x + player.w) + (player.ix * player.speed) * dt <= love.graphics.getWidth() - padding and (player.x + player.ix * player.speed * dt) >= padding then
+      player.x = player.x + (player.ix * player.speed) * dt
+    end
+    if (player.y + player.h) + (player.iy * player.speed) * dt <= love.graphics.getHeight() - padding and (player.y + player.iy * player.speed * dt) >= padding then
+      player.y = player.y + (player.iy * player.speed) * dt
+    end
+
+    player.cx = (player.x + (player.w/2))
+    player.cy = (player.y + (player.h/2))
+
+    for i,v in ipairs(coins) do
+      if distance(player.cx, player.cy, v.x, v.y) <= player.w/2 then
+        table.remove(coins, i)
+        score = score + 1
+      end
+    end
+    if #coins <= 0 then
+      curState = states.win
+    end
+  end
 end
 
 function love.draw()
   -- body...
+  if curState == states.playing then
+    love.graphics.setColor(1, 0, 0.7)
+    love.graphics.rectangle("fill", player.x, player.y, player.w, player.h)
+    for i,v in ipairs(coins) do
+      love.graphics.setColor(1, 1, 0)
+      love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
+    end
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.printf("Score: "..score,50,50,100,"center")
+    love.graphics.printf("Time: "..math.ceil(time),50,70,100,"center")
+  elseif curState == states.gameover then
+    love.graphics.printf("You ran out of time\nPress any key to try again", love.graphics.getWidth()/2 - 100, love.graphics.getHeight()/2,200,"center")
 
-  love.graphics.setColor(1, 0, 0.7)
-  love.graphics.rectangle("fill", player.x, player.y, player.w, player.h)
-  for i,v in ipairs(coins) do
-    love.graphics.setColor(1, 1, 0)
-    love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
+  elseif curState == states.win then
+    love.graphics.printf("You win!\nPress any key to restart", love.graphics.getWidth()/2 - 100, love.graphics.getHeight()/2,200,"center")
+
+  elseif curState == states.start then
+    love.graphics.printf("Press any key to start", love.graphics.getWidth()/2 - 100, love.graphics.getHeight()/2,200,"center")
   end
+
 end
 
 --We can create a coin using this custom function
@@ -96,6 +137,28 @@ function createcoin()
 
 
   table.insert(coins, coin)
+end
+
+function love.keypressed(key, scancode, isrepeat)
+  -- body...
+  if curState == states.start then
+    curState = states.playing
+  end
+  if curState == states.gameover or curState == states.win then
+    resetBoard()
+    curState = states.playing
+  end
+end
+
+function resetBoard()
+  coins = {}
+  for i=1,10 do
+    createcoin()
+  end
+  player.x = love.graphics.getWidth() / 2 - (player.w / 2)
+  player.y = love.graphics.getHeight() / 2 - (player.h / 2)
+  time = 10
+  score = 0
 end
 
 function distance(x1, y1, x2, y2)
