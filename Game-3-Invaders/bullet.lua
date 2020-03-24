@@ -12,7 +12,7 @@ function bullet:update(dt)
   self.y = self.y - self.speed * dt
 end
 
-function adbullet:draw()
+function bullet:draw()
   for i, v in ipairs(bullets) do
     love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
   end

@@ -5,8 +5,8 @@ function player:new()
   self.h = 50
   self.x = love.graphics.getWidth() / 2 - self.w/2
   self.y = love.graphics.getHeight() - 75
-  self.shotcooldown = 1
-  self.speed = 250
+  self.shotcooldown = 0
+  self.speed = 500
 end
 
 function player:update(dt)
@@ -19,7 +19,7 @@ function player:update(dt)
   end
   -- to fire a bullet
   if love.keyboard.isDown("space") then
-    player:shoot(self.x,self.y)
+    player:shoot(self.x + (self.w/2),self.y)
   end
 end
 
@@ -30,7 +30,7 @@ end
 
 function player:shoot(x,y)
   if self.shotcooldown <= 0 then
-    self.shotcooldown = 1
+    self.shotcooldown = .2
     table.insert(bullets, bullet(x,y))
   end
 end
