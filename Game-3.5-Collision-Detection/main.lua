@@ -27,3 +27,17 @@ function love.draw()
   love.graphics.setColor(0, 0, 1)
   love.graphics.rectangle("fill", box2.x, box2.y, box2.w, box2.h)
 end
+
+function isColliding(a, b)
+  local a_left = a.x
+  local a_right = a.x + a.w
+  local a_top = a.y
+  local a_bottom = a.y + a.height
+
+  local b_left = b.x
+  local b_right = b.x + b.w
+  local b_top = b.y
+  local b_bottom = b.y + b.height
+
+  if a_right > b_left
+end

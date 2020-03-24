@@ -79,7 +79,7 @@ function love.update(dt)
       player.ix = player.ix / dist
       player.iy = player.iy / dist
     end
-    --The following several lines adds borders to
+    --The following several lines adds borders to the game board
     if (player.x + player.w) + (player.ix * player.speed) * dt <= love.graphics.getWidth() - padding and (player.x + player.ix * player.speed * dt) >= padding then
       player.x = player.x + (player.ix * player.speed) * dt
     end
