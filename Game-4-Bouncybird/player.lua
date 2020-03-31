@@ -8,7 +8,7 @@ function player:new()
   self.yVel = 0
   self.yAcceleration = -9.18
   self.jumpCooldown = 1
-  self.jumpPower = 500
+  self.jumpPower = 400
 end
 
 function player:update(dt)
