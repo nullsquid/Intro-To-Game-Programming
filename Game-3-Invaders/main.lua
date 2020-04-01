@@ -77,6 +77,18 @@ end
 
 function love.draw()
   -- body...
+  if state == states.waiting then
+    love.graphics.setColor(1,1,1)
+    love.graphics.print("Shoot the invading aliens\nPress any key to start",love.graphics.getWidth()/2 - 70,love.graphics.getHeight()/2)
+  end
+  if state == states.lose then
+    love.graphics.setColor(1,0,0)
+    love.graphics.print("You lose\nPress any key to restart",love.graphics.getWidth()/2 - 70,love.graphics.getHeight()/2)
+  end
+  if state == states.win then
+    love.graphics.setColor(0,1,0)
+    love.graphics.print("You win!\nPress any key to restart",love.graphics.getWidth()/2 - 70,love.graphics.getHeight()/2)
+  end
   if state == states.playing then
     love.graphics.setColor(1, 1, 1)
     love.graphics.printf("Score: "..score, 20, 20, 50, "center")
