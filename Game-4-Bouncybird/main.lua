@@ -27,7 +27,7 @@ end
 
 function spawnpipes()
   if spawntimer <= 0 then
-    table.insert(pipes, pipe(love.graphics.getWidth() -  20, math.random(50,450)))
+    table.insert(pipes, pipe(love.graphics.getWidth() +  20, math.random(50,450)))
     spawntimer = 2
   end
 end

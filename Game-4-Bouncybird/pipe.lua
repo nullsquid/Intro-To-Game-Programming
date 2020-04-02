@@ -19,7 +19,5 @@ function pipe:draw()
     love.graphics.setColor(0, 1, .3)
     love.graphics.rectangle("fill", v.x, 0, v.w, v.h)
     love.graphics.rectangle("fill", v.x, v.h + v.gap, v.w, love.graphics.getHeight())
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.print(v.gap, v.x,10)
   end
 end
