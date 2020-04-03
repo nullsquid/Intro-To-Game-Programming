@@ -6,7 +6,7 @@ function player:new()
   self.x = 200
   self.y = 50
   self.yVel = 0
-  self.yAcceleration = -9.18
+  self.yAcceleration = -20
   self.jumpCooldown = .5
   self.jumpPower = 500
   self.jumpMultiplier = 1.5
@@ -14,6 +14,7 @@ function player:new()
 end
 
 function player:update(dt)
+  self.h = animationbounce(dt,50,20,.2)
   self.jumpCooldown = self.jumpCooldown - dt
   if self.yVel < 0 then
     self.yVel = self.yVel + self.yAcceleration
