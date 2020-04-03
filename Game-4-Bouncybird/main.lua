@@ -27,6 +27,12 @@ function love.update(dt)
     spawnpipes()
     player:update(dt)
     pipe:update(dt)
+    if player.y < 0 or player.y > love.graphics.getHeight() then
+      player.dead = true
+    end
+    if player.dead == true then
+      curState = states.lose
+    end
     for i,v in ipairs(pipes) do
       v:checkforcollisions(player)
       if v.x < -20 then
@@ -43,7 +49,8 @@ function love.draw()
     love.graphics.print("Jump through the pipes\nPress any key to start", love.graphics.getWidth()/2 - 100, love.graphics.getHeight()/2)
   end
   if curState == states.lose then
-
+    love.graphics.setColor(1,0,0)
+    love.graphics.print("You lose!\nPress any key to restart", love.graphics.getWidth()/2 - 100, love.graphics.getHeight()/2)
   end
   if curState == states.playing then
     love.graphics.setColor(1, 1, 1)
@@ -57,6 +64,14 @@ end
 function love.keypressed(key, scancode, isrepeat)
   -- body...
   if curState == states.waiting then
+    curState = states.playing
+  end
+  if curState == states.lose then
+
+    score = 0
+    player.dead = false
+    player.y = 150
+    pipes = {}
     curState = states.playing
   end
 end

@@ -4,7 +4,7 @@ function player:new()
   self.h = 50
   self.w = 50
   self.x = 200
-  self.y = 50
+  self.y = 150
   self.yVel = 0
   self.yAcceleration = -20
   self.maxCooldown = .5
