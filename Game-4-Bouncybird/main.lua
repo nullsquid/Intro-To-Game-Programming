@@ -16,6 +16,9 @@ function love.update(dt)
   spawnpipes()
   player:update(dt)
   pipe:update(dt)
+  for i,v in ipairs(pipes) do
+    v:checkforcollisions(player)
+  end
 end
 
 function love.draw()

@@ -10,6 +10,7 @@ function player:new()
   self.jumpCooldown = .5
   self.jumpPower = 500
   self.jumpMultiplier = 1.5
+  self.dead = false
 end
 
 function player:update(dt)
@@ -30,6 +31,8 @@ function player:update(dt)
 end
 
 function player:draw()
-  love.graphics.setColor(1, 1, 1)
-  love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
+  if self.dead == false then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
+  end
 end
