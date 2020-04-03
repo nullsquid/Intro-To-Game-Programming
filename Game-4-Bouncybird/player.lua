@@ -39,7 +39,12 @@ function player:draw()
   end
 end
 
-function animationbounce(t, b, c, d)
+function player:reset()
+  player.dead = false
+  player.y = 150
+end
+
+function player:animationbounce(t, b, c, d)
   t = t/(d/2)
   if t < 1 then
     return c/2*t*t*t + b

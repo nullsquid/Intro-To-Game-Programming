@@ -67,10 +67,8 @@ function love.keypressed(key, scancode, isrepeat)
     curState = states.playing
   end
   if curState == states.lose then
-
     score = 0
-    player.dead = false
-    player.y = 150
+    player:reset()
     pipes = {}
     curState = states.playing
   end
