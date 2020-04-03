@@ -6,6 +6,7 @@ function pipe:new(x, h)
   self.gap = 200
   self.h = h
   self.speed = 250
+  self.scored = false
 end
 
 function pipe:update(dt)
@@ -20,6 +21,8 @@ function pipe:draw()
     love.graphics.setColor(0, 1, .3)
     love.graphics.rectangle("fill", v.x, 0, v.w, v.h)
     love.graphics.rectangle("fill", v.x, v.h + v.gap, v.w, love.graphics.getHeight())
+    love.graphics.setColor(1, 0, 0, 0)
+    love.graphics.rectangle("line", v.x, v.h, v.w,v.gap)
   end
 end
 
@@ -33,6 +36,11 @@ function pipe:checkforcollisions(obj)
   local bot_right = self.x + self.w
   local bot_top = self.h + self.gap
   local bot_bottom = (self.h + self.gap) + love.graphics.getHeight()
+
+  local gap_left = self.x
+  local gap_right = self.x + self.w
+  local gap_top = self.h
+  local gap_bottom = self.h + self.gap
 
   local obj_left = obj.x
   local obj_right = obj.x + obj.w
@@ -49,4 +57,14 @@ function pipe:checkforcollisions(obj)
   bot_top < obj_bottom then
     obj.dead = true
   end
+
+  if gap_right > obj_left and
+  gap_left < obj_right and
+  gap_bottom > obj_top and
+  gap_top < obj_bottom and
+  self.scored == false then
+    score = score + 1
+    self.scored = true
+  end
+
 end

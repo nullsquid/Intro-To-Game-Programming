@@ -11,27 +11,43 @@ function love.load(arg)
   states.playing = 2
   states.lose = 3
 
-  cur_state = states.waiting
+  curState = states.waiting
   spawntimer = 1
+
+  score = 0
+
+  mainFont = love.graphics.newFont(20)
 
 end
 
 function love.update(dt)
   -- body...
-  if cur_state == states.playing then
+  if curState == states.playing then
     spawntimer = spawntimer - dt
     spawnpipes()
     player:update(dt)
     pipe:update(dt)
     for i,v in ipairs(pipes) do
       v:checkforcollisions(player)
+      if v.x < -20 then
+        table.remove(pipes, i)
+      end
     end
   end
 end
 
 function love.draw()
   -- body...
-  if cur_state == states.playing then
+  love.graphics.setFont(mainFont)
+  if curState == states.waiting then
+    love.graphics.print("Jump through the pipes\nPress any key to start", love.graphics.getWidth()/2 - 100, love.graphics.getHeight()/2)
+  end
+  if curState == states.lose then
+
+  end
+  if curState == states.playing then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print("Score: "..score)
     player:draw()
     pipe:draw()
   end
@@ -40,8 +56,8 @@ end
 
 function love.keypressed(key, scancode, isrepeat)
   -- body...
-  if cur_state == states.waiting then
-    cur_state = states.playing
+  if curState == states.waiting then
+    curState = states.playing
   end
 end
 
