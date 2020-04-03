@@ -7,7 +7,6 @@ function love.load(arg)
   pipes = {}
 
   spawntimer = 1
-  -- pipe = pipe(500, 400)
 end
 
 function love.update(dt)
