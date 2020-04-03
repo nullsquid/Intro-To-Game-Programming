@@ -7,7 +7,8 @@ function player:new()
   self.y = 50
   self.yVel = 0
   self.yAcceleration = -20
-  self.jumpCooldown = .5
+  self.maxCooldown = .5
+  self.jumpCooldown = 0
   self.jumpPower = 500
   self.jumpMultiplier = 1.5
   self.dead = false
@@ -26,7 +27,7 @@ function player:update(dt)
   if love.keyboard.isDown("space") then
     if self.jumpCooldown <= 0 then
       self.yVel = self.jumpPower
-      self.jumpCooldown = .2
+      self.jumpCooldown = self.maxCooldown
     end
   end
 end
