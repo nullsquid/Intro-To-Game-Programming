@@ -15,7 +15,7 @@ function player:new()
 end
 
 function player:update(dt)
-  self.h = animationbounce(dt,50,20,.2)
+  -- self.h = animationbounce(dt,50,20,.2)
   self.jumpCooldown = self.jumpCooldown - dt
   if self.yVel < 0 then
     self.yVel = self.yVel + self.yAcceleration
@@ -30,6 +30,7 @@ function player:update(dt)
       self.jumpCooldown = self.maxCooldown
     end
   end
+  -- self.w = player:ease(dt, 1, 50, 20)
 end
 
 function player:draw()
@@ -42,13 +43,4 @@ end
 function player:reset()
   player.dead = false
   player.y = 150
-end
-
-function player:animationbounce(t, b, c, d)
-  t = t/(d/2)
-  if t < 1 then
-    return c/2*t*t*t + b
-  end
-  t = t - 2
-  return  c/2 * (t*t*t + 2) + b
 end
