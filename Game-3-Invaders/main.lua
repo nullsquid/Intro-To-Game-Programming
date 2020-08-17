@@ -100,7 +100,16 @@ end
 
 function spawnenemy()
   if spawntimer <= 0 then
-    table.insert(enemies, enemy(math.random(0, love.graphics.getWidth() - 50),-50))
+    local side = math.random(1,4)
+    if side == 1 then -- enemy(x,y)
+      table.insert(enemies, enemy(math.random(0, love.graphics.getWidth() - 50),-50))
+    elseif side == 2 then
+      table.insert(enemies, enemy(math.random(0, love.graphics.getWidth() - 50),love.graphics.getHeight() + 50))
+    elseif side == 3 then
+      table.insert(enemies, enemy(math.random(0, love.graphics.getWidth() - 50),-50))
+    elseif side == 4 then
+      table.insert(enemies,enemy(love.graphics.getWidth(),math.random(0,love.graphics.getHeight())))
+    end
     spawntimer = 1
   end
 end
